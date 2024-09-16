@@ -1,58 +1,62 @@
 # lab 1
 import numpy
-import random
+def printm(matrix):
+    return '\n'.join('  '.join(str(int(x)).lstrip('0') or '0' for x in row) for row in matrix)
+
 my_array = numpy.arange(10, 70, 2)
 print("1) массив, элементы которого - числа из интервала [10, 70) с шагом 2:")
-print(my_array)
+print(*my_array)
 
 print()
 
 A = my_array.reshape(6, 5)
 print("2) Матрица А:")
-print(A)
+print(printm(A))
 A=A.T
 print("2) Транспонированная А:")
-print(A)
+print(printm(A))
 
 print()
 
 A=A*5//2
 print("3) A*2.5:")
-print(A)
+print(printm(A))
 A[0]-=5
 print("3) A[0][i]-5:")
-print(A)
+print(printm(A))
 
 print()
 
 print("4) Mat B:")
 B = numpy.random.uniform(0,9,(6,3))
-print(B)
+print(printm(B))
 
 print()
 
 a=A.sum(1)
 b=B.sum(0)
 print('5) a:')
-print(a)
+print(*a)
+print("размерность а = ", len(a))
 print('5) b:')
-print(b)
+print(*b)
+print("размерность b = ", len(b))
 
 print()
 
 C = numpy.dot(A,B)
 print("6) A*B=")
-print(C)
+print(printm(C))
 
 print()
 
 A=numpy.delete(A,2,axis=1)
 print("7) Удален 3 столбец в A:")
-print(A)
+print(printm(A))
 Bdop = numpy.random.uniform(10,20,(6,3))
 B = numpy.hstack((B,Bdop))
 print("7) Добавлены 3 столбца к B:")
-print(B)
+print(printm(B))
 
 print()
 
@@ -61,26 +65,26 @@ print("8) det A = ", det1)
 if det1!=0:
     OA=numpy.linalg.inv(A)
     print("8) A^(-1)")
-    print(OA)
+    print(printm(OA))
 det12=numpy.linalg.det(B)
 print("8) det B = ", det12)
 if det12!=0:
     OB=numpy.linalg.inv(B)
     print("8) B^(-1)")
-    print(OB)
+    print(printm(OB))
 
 print()
 
 A=numpy.linalg.matrix_power(A,6)
 B=numpy.linalg.matrix_power(B,14)
 print("9) A^6")
-print(A)
+print(printm(A))
 print("9) B^14")
-print(B)
+print(printm(B))
 
 print()
 
 print("10) var 6")
 left_side = numpy.array([[1, -4, 2, 1.4], [2, -3.5, 9, 0], [7, 5, -4, 3], [1, 2, 3, 4]])
 right_side = numpy.array([20, 7.8, -6, 6])
-print(numpy.linalg.inv (left_side). dot (right_side))
+print(*numpy.linalg.inv (left_side). dot (right_side))
