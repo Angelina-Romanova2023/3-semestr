@@ -1,0 +1,56 @@
+# lab 2
+import numpy as np
+from scipy.misc import derivative
+from sympy import symbols, sin, cos, diff, integrate
+from scipy.optimize import minimize
+import sympy as sp
+import scipy as sc
+def f(x):
+  return np.sin(2*x) / np.cos(x)
+x0 = 2
+p1=derivative(f, x0, 1, 1)
+p2=derivative(f, x0, 1, 2)
+print("1) Производные равны:",p1, p2)
+
+print("2) Символьные производные равны:")
+x = symbols('x')
+f = sin(2*x) / cos(x)
+dfdx = diff(f, x)
+print(dfdx)
+dfdx=diff(dfdx, x)
+print(dfdx)
+
+a = 2
+b = 3
+x = symbols('x')
+f = sp.sin(2*sp.Symbol('x')) / sp.cos(sp.Symbol('x'))
+integral = sp.integrate(f, (sp.Symbol('x'), a, b))
+print("3) Значение определенного интеграла:", integral)
+
+def f(x):
+    return np.sin(2*x) / np.cos(x)
+n = 100000
+h = (b - a) / n
+areas = f(np.linspace(a, b, n)) * h
+integral = np.sum(areas)
+print(integral)
+
+x = symbols('x')
+f = sin(2*x) / cos(x)
+chet=integrate(f, x)
+print("4) Символьное значение интеграла:", chet,  "+ c")
+
+# Определение целевой функции
+def objective_function(x):
+  return (x[0]-3)**2 + (x[1]-8)**2
+# Начальное значение решения
+initial_guess = np.array([0, 0])
+# Настройка ограничений
+constraints = (
+  {'type': 'eq', 'fun': lambda x: -2*x[0] + x[1] - 2},  # = 2
+  {'type': 'ineq', 'fun': lambda x: 3*x[1] + 4*x[1] + 6}   # >= -6
+)
+# Выполнение оптимизации
+result = minimize(objective_function, initial_guess, constraints=constraints)
+print("5) Оптимальное значение:", result.fun)
+print("   Оптимальное решение:", result.x)
