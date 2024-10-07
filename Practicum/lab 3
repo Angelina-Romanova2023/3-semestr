@@ -1,6 +1,8 @@
 import numpy as np
 from scipy.stats import chisquare
 
+def printm(matrix):
+    return '\n'.join('  '.join(str(int(x)).lstrip('0') or '0' for x in row) for row in matrix)
 def lu_decomposition(A):
   m, n = A.shape
   # Копируем исходную матрицу
@@ -31,11 +33,11 @@ A = np.array([[1, -4, 2, 1.4],
               [1, 2, 3, 4]])
 L, U, P = lu_decomposition(A)
 print("\nНижняя треугольная матрица:")
-print(L)
+print(printm(L))
 print("\nВерхняя треугольная матрица:")
-print(U)
+print(printm(U))
 print("\nМатрица перестановок:")
-print(P)
+print(printm(P))
 print(np.allclose(P @ L @ U, A))
 
 def determinant(A):
@@ -67,7 +69,7 @@ mean_uniform = np.mean(sample_uniform)
 mean_normal = np.mean(sample_normal)
 # b. Мода
 mode_uniform = np.bincount(sample_uniform).argmax()
-#mode_normal = np.bincount(sample_normal).argmax()
+#mode_normal = np.bincount(sample_normal).argmax()!
 # c. Медиана
 median_uniform = np.median(sample_uniform)
 median_normal = np.median(sample_normal)
