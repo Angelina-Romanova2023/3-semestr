@@ -1,5 +1,6 @@
 import numpy as np
 from scipy.stats import chisquare
+from scipy import stats
 
 def printm(matrix):
     return '\n'.join('  '.join(str(int(x)).lstrip('0') or '0' for x in row) for row in matrix)
@@ -32,13 +33,16 @@ A = np.array([[1, -4, 2, 1.4],
               [7, 5, -4, 3],
               [1, 2, 3, 4]])
 L, U, P = lu_decomposition(A)
-print("\nНижняя треугольная матрица:")
+print("1)")
+print(printm(A))
+
+print("\n 2)")
+print("Нижняя треугольная матрица:")
 print(printm(L))
-print("\nВерхняя треугольная матрица:")
+print("Верхняя треугольная матрица:")
 print(printm(U))
-print("\nМатрица перестановок:")
+print("Матрица перестановок:")
 print(printm(P))
-print(np.allclose(P @ L @ U, A))
 
 def determinant(A):
   # Вычисляем определители L и U
@@ -47,10 +51,10 @@ def determinant(A):
   # Вычисляем определитель P (1 или -1)
   det_P = np.linalg.det(P)
   # Возвращаем определитель матрицы A
-  return det_L * det_U * det_P
+  return int(det_L * det_U * det_P)
 
 det = determinant(A)
-print("Определитель матрицы A:", det)
+print("\n 3) Определитель матрицы A:", det)
 
 # Размер выборки
 n = 100
@@ -58,18 +62,17 @@ n = 100
 sample_uniform = np.random.randint(1, 101, n)
 # Нормальное распределение
 sample_normal = np.random.normal(50, 10, n)
-# Проверяем, что обе выборки имеют одинаковый размер
-assert sample_uniform.size == sample_normal.size
 # Выводим первые 10 элементов каждой выборки
-print("Первые 10 элементов равномерной выборки:", sample_uniform[:10])
-print("Первые 10 элементов нормальной выборки:", sample_normal[:10])
+print("\n 4) Первые 10 элементов равномерной выборки:", sample_uniform[:10])
+print("   Первые 10 элементов нормальной выборки:", sample_normal[:10])
 
 # a. Среднее
 mean_uniform = np.mean(sample_uniform)
 mean_normal = np.mean(sample_normal)
 # b. Мода
 mode_uniform = np.bincount(sample_uniform).argmax()
-#mode_normal = np.bincount(sample_normal).argmax()!
+#mode_normal = np.bincount(sample_normal).argmax()
+mode_normal = stats.mode(sample_normal).mode[0]
 # c. Медиана
 median_uniform = np.median(sample_uniform)
 median_normal = np.median(sample_normal)
@@ -83,16 +86,16 @@ max_normal = np.max(sample_normal)
 std_uniform = np.std(sample_uniform)
 std_normal = np.std(sample_normal)
 # Выводим результаты
-print("Равномерная выборка:")
+print("\n5) Равномерная выборка:")
 print("Среднее:", mean_uniform)
 print("Мода:", mode_uniform)
 print("Медиана:", median_uniform)
 print("Минимум:", min_uniform)
 print("Максимум:", max_uniform)
 print("Стандартное отклонение:", std_uniform)
-print("\nНормальная выборка:")
+print("\n Нормальная выборка:")
 print("Среднее:", mean_normal)
-#print("Мода:", mode_normal)
+print("Мода:", mode_normal)
 print("Медиана:", median_normal)
 print("Минимум:", min_normal)
 print("Максимум:", max_normal)
@@ -101,7 +104,7 @@ print("Стандартное отклонение:", std_normal)
 # Вычисляем значение хи-квадрат и p-value
 chi2, p = chisquare(sample_uniform)
 chi21, p1 = chisquare(sample_normal)
-print("Значение хи-квадрат:", chi2)
+print("\n 6) Значение хи-квадрат:", chi2)
 print("p-value:", p)
-print("Значение хи-квадрат:", chi21)
+print(" Значение хи-квадрат:", chi21)
 print("p-value:", p1)
