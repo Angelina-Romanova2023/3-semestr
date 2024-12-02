@@ -1,0 +1,173 @@
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+
+# 1
+def func(x):
+    return np.sin(2 * x) / np.cos(x)
+
+
+a = 2
+b = 3
+x = np.linspace(a, b, 100)
+y = func(x)
+print(*y)
+
+# %%
+
+#2
+plt.figure(figsize=(10, 6))
+plt.plot(x, y, label='y = sin(2 * x) / cos(x)')
+plt.title('График функции y = sin(2 * x) / cos(x)', fontsize=12)
+plt.xlabel('x', fontsize=12)
+plt.ylabel('y', fontsize=12)
+plt.legend()
+#plt.grid(True)
+plt.show()
+
+
+# %%
+
+#3
+plt.figure(figsize=(10, 6))
+plt.scatter(x, y, color=(0.1, 0.5, 0.8), marker='.', label='y = sin(2 * x) / cos(x)')
+plt.title('Точечный график функции y = sin(2 * x) / cos(x)', fontsize=12)
+plt.xlabel('x', fontsize=12)
+plt.ylabel('y', fontsize=12)
+plt.grid(True, color='grey', alpha=0.5)
+plt.legend()
+plt.show()
+
+
+# %%
+
+#4
+uniform_data = np.random.uniform(0, 100, 100)
+normal_data = np.random.normal(50, 5, 100).astype(int)
+
+plt.figure(figsize=(10, 6))
+plt.hist(uniform_data, bins=60, color='red', alpha=1, label='Равномерное распределение')
+plt.hist(normal_data, bins=30, color='yellow', alpha=0.5, label='Нормальное распределение')
+plt.title('Гистограммы распределений', fontsize=14)
+plt.xlabel('Значения', fontsize=12)
+plt.ylabel('Частота', fontsize=12)
+plt.legend()
+plt.show()
+
+
+# %%
+
+#5
+uniform_sample = np.random.randint(1, 5, 50)
+unique, counts = np.unique(uniform_sample, return_counts=True)
+
+plt.figure(figsize=(10, 6))
+plt.pie(counts, labels=unique, autopct='%1.f%%', colors=['red', 'green', 'blue', 'grey'])
+plt.title('Круговая диаграмма', fontsize=14)
+plt.show()
+
+plt.figure(figsize=(10, 6))
+plt.bar(unique, counts, color=['red', 'green', 'blue', 'yellow'])
+plt.title('Столбчатая диаграмма', fontsize=14)
+plt.xlabel('Числа', fontsize=12)
+plt.ylabel('Частота', fontsize=12)
+plt.show()
+
+
+# %%
+
+#6
+x3d = np.linspace(4, 6, 100)
+y3d = np.linspace(4, 6, 100)
+X, Y = np.meshgrid(x3d, y3d)
+Z = (X - 1)*2 + (Y - 3)*2
+
+fig = plt.figure(figsize=(10, 6))
+ax = fig.add_subplot(111, projection='3d')
+ax.plot_surface(X, Y, Z, color='green')
+ax.set_title('Трехмерный график функции', fontsize=14)
+ax.set_xlabel('X', fontsize=12)
+ax.set_ylabel('Y', fontsize=12)
+ax.set_zlabel('Z', fontsize=12)
+plt.show()
+
+
+# %%
+
+#7
+fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+fig.suptitle('Сетка графиков', fontsize=16)
+
+axs[0, 0].plot(x, y, label='y = sin(2 * x) / cos(x)')
+axs[0, 0].set_title('График функции y = sin(2 * x) / cos(x)')
+axs[0, 0].set_xlabel('x')
+axs[0, 0].set_ylabel('y')
+axs[0, 0].legend()
+axs[0, 0].grid(True)
+
+axs[0, 1].scatter(x, y, color=(0.1, 0.2, 0.5), marker='.', label='y = sin(2 * x) / cos(x)')
+axs[0, 1].set_title('Точечный график функции y = sin(2 * x) / cos(x)')
+axs[0, 1].set_xlabel('x')
+axs[0, 1].set_ylabel('y')
+axs[0, 1].legend()
+axs[0, 1].grid(True, color='gray', alpha=0.5)
+
+axs[1, 0].pie(counts, labels=unique, autopct='%1.1f%%', colors=['red', 'green', 'blue', 'grey'])
+axs[1, 0].set_title('Круговая диаграмма')
+
+ax3d = fig.add_subplot(224, projection='3d')
+ax3d.plot_surface(X, Y, Z, color='green')
+ax3d.set_title('Трехмерный график функции')
+ax3d.set_xlabel('X')
+ax3d.set_ylabel('Y')
+ax3d.set_zlabel('Z')
+
+#plt.tight_layout(rect=[1 , 0.95 , 1, 0.95])
+plt.show()
+
+
+# %%
+
+#8
+styles = ['ggplot', 'grayscale', 'dark_background', 'bmh']
+
+for style in styles:
+    plt.style.use(style)
+    #fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+    
+    #7
+    fig, axs = plt.subplots(2, 2, figsize=(15, 10))
+    fig.suptitle('Сетка графиков', fontsize=16)
+
+    axs[0, 0].plot(x, y, label='y = sin(2 * x) / cos(x)')
+    axs[0, 0].set_title('График функции y = sin(2 * x) / cos(x)')
+    axs[0, 0].set_xlabel('x')
+    axs[0, 0].set_ylabel('y')
+    axs[0, 0].legend()
+    axs[0, 0].grid(True)
+
+    axs[0, 1].scatter(x, y, color=(0.1, 0.2, 0.5), marker='.', label='y = sin(2 * x) / cos(x)')
+    axs[0, 1].set_title('Точечный график функции y = sin(2 * x) / cos(x)')
+    axs[0, 1].set_xlabel('x')
+    axs[0, 1].set_ylabel('y')
+    axs[0, 1].legend()
+    axs[0, 1].grid(True, color='gray', alpha=0.5)
+
+    axs[1, 0].pie(counts, labels=unique, autopct='%1.1f%%', colors=['red', 'green', 'blue', 'yellow'])
+    axs[1, 0].set_title('Круговая диаграмма')
+
+    ax3d = fig.add_subplot(224, projection='3d')
+    ax3d.plot_surface(X, Y, Z, color='green')
+    ax3d.set_title('Трехмерный график функции')
+    ax3d.set_xlabel('X')
+    ax3d.set_ylabel('Y')
+    ax3d.set_zlabel('Z')
+
+    plt.tight_layout(rect=[0, 0, 1, 0.95])
+    plt.show()
+
+
+
+
